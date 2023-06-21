@@ -1,9 +1,9 @@
-# Birds_data_preparation
+# Birds_data_preparation 🐦
 This project is composed by scripts in R and Python languages for Amazon birds vocalization data prepartion in 2D and 3D arrays.
 
-As an undergraduate researcher at Ferraz Population Biology Lab (UFRGS) I helped to prepare vocalization data from 62 species of Amazon birds to posterior analysis of bayesian hierarquical modeling of population biology, obtaining estimatives like probabilities of presence, extinction, colonization and detection.
+As an undergraduate researcher at Ferraz Population Biology Lab (UFRGS) I helped to prepare vocalization data from 62 species of Amazon birds for posterior analysis of bayesian hierarquical modeling of population biology, obtaining estimatives like probabilities of presence, extinction, colonization and detection.
 
-The raw dataset had informations like probability of detection of each species at each recording segment in CSV files and the posteior analysis required all this data organized in 2D and 3D arrays, separating the data, for example, by site, date and species. Besides, some sites names were not completely uniformized, with some letters capitalization not matching. To prepare the data we first developed R scripts to uniformize the letter capitalization and then prepare this data in organized arrays. However, this R script takes a very long time (about 2 days and a half) to complete the data preparation, and as we need to run this script many times (for example, using differend treshold values) I am currently working on translate this script to Python, which usually has a faster running than R (not ready year).
+The raw dataset had informations like probability of detection of each species at each recording segment in CSV files and the posteior analysis required all this data organized in 2D and 3D arrays, separating the data, for example, by site, date and species and also makes sites clustering for analysis optimization.  Besides, some sites names were not completely uniformized, with some letters capitalization not matching. To prepare the data we first developed R scripts to uniformize the letter capitalization and then prepare this data in organized arrays. However, this R script takes a very long time (about 2 days and a half) to complete the data preparation, and as we need to run this script many times (for example, using differend treshold values) I am currently working on translate this script to Python, which usually has a faster running than R (not ready year).
 
 Attention to the fact that in this repository I am using only a small survey from the original dataset beacuse it is really huge (almost 700000 rows and 63 columns) only for demonstration purpose. This survey is composed by the last 2000 rows from the original dataset.
 
@@ -35,7 +35,17 @@ It has the original "raw" dataset files and also the versions of this dataset wi
      - Columns: species
 
 ## Python_scripts
+It has all the Python scripts:
+
+1. **data_preparation_python.py**: the script that makes sites clustering and organizes the raw data in three 2-dimensional arrays and one 3-dimensional array for posterior analysis of bayesian hierarquical modeling. The code has anotations explaining the process in details. It is the python version of the R langauge script *data_preparation_r.R* (at the *R_scripts* folder). [**STILL IN DEVELOPMENT** 🛠️]
+
+2. **segmts_and_sites_capitalization.py**: the script that receives *date_time_diurnal.txt* and *locations_dirunal.txt* (both at the *Data_input* folder) as input and returns *date_time_diurnal_capitalization_python.txt* and *locations_capitalization_python.txt* (both at the *Data_input* folder) as output, with uniformized letter capitalization. It is the Python version of the file *segmts_and_sites_capitalization.R* (at the folder *R_scripts*).
 
 ## R_scripts
+It has all the R scripts:
+
+1. **data_preparation_r.R**: the script that makes sites clustering and organizes the raw data in three 2-dimensional arrays and one 3-dimensional array for posterior analysis of bayesian hierarquical modeling. The code has anotations explaining the process in details. It is the R language version of the Python script *data_preparation_python.py* (at the *Python_scripts* folder).
+
+2. **segmts_and_sites_capitalization.R**: the script that receives *date_time_diurnal.txt* and *locations_dirunal.txt* (both at the *Data_input* folder) as input and returns *date_time_diurnal_capitalization_r.txt* and *locations_capitalization_r.txt* (both at the *Data_input* folder) as output, with uniformized letter capitalization. It is the R language version of the file *segmts_and_sites_capitalization.py* (at the folder *Python_scripts*).
 
 
