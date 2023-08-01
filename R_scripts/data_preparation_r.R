@@ -1,5 +1,5 @@
 
-## Script for preparation of Amazon birds vocalization data
+## Script for preparation of Amazonia birds vocalization data
 
 ## Receives detection raw data and returns:
 
@@ -25,19 +25,21 @@
 
 # Now we can load the input files:
 
-# "shortY" is a CSV file whose dimensions are:
+# "Y" is a CSV file whose dimensions are:
 #   - Rows: recording segments
 #   - Columns: species
 # where each cell has the probability of presence of the vocalization from that
 # species in that segment.
-# "shortY" is a small survey from the last 2000 rows from the original (much
+# It is a small survey from the last 100000 rows from the original (much
 # bigger) dataset.
-Y <- read.csv("../Data_input/shortY.csv", head=TRUE, sep=";")
+Y <- read.csv("../Data_input/Y.csv", head=TRUE, sep=";")
 
 # "SEGMTS" is a CSV file whose dimensions are:
 # - Rows: recording segments
 # - Columns: ID data of each recording segment (site, date, recording number and
 #             segment number)
+# It is a small survey from the last 100000 rows from the original (much
+# bigger) dataset.
 SEGMTS <- read.csv("../Data_input/date_time_diurnal_capitalization_r.txt", head=TRUE, sep=",")
 
 # "SITES" is a CSV file whose dimensions are:
@@ -112,7 +114,7 @@ ngroups <- length(table(groups))
 sitegroup <- as.vector(rep(list(rep(NA, max(table(groups)))), ngroups))
 for (i in 1:length(sitegroup)) { sitegroup[[i]] <- shortSITES[which(groups==i),1] }
 
-# Groups names list (the name of each groups is the name of the first site
+# Groups names list (the name of each group is the name of the first site
 # belonging to that group):
 groupl <- rep(NA,ngroups)
 for(i in 1:ngroups) {groupl[i]<-sitegroup[[i]][1]}
@@ -137,27 +139,25 @@ maxdy <- apply(yrgroup,2,max)
 NDETSG <- array(data=NA,dim=c(ngroups,sum(maxdy),nsps))
 dimnames(NDETSG)[[3]] <- colnames(Y)
 
-# Dates of the surveying days by site over the years:
+# Table 2 - Dates of the surveying days by site over the years:
 DATSG <- t(matrix(data=NA,nrow=ngroups,ncol=sum(maxdy)))
 DATSG <- data.frame(DATSG)
 for(i in 1:ngroups) {class(DATSG[,i])="Date"}
 
-# Effort (minutes of recording) by day and group:
+# Table 3 - Effort (minutes of recording) by day and group:
 EFFGmins <- matrix(data=NA,nrow=ngroups,ncol=sum(maxdy))
 
-# Effort (number of surveyed sites) by day and group:
+# Table 4 - Effort (number of surveyed sites) by day and group:
 EFFGsits <- matrix(data=NA,nrow=ngroups,ncol=sum(maxdy))
 
 # ------------------------------------------------------------------------------
 ## Fill output tables:
 
+# get column corresponding to current species
 for(i in 1:nsps) {
-	cat("especie =",i,"\n")
-	# get column corresponding to current species
 	
 	# define current year
 	for(j in 1:length(yearl)) {
-	  cat("ano =",j,"\n")
 		cy <- yearl[j] # "cy" = "current year"
 		
 		# define current group
@@ -176,7 +176,7 @@ for(i in 1:nsps) {
 			if(j==1) { fdc <- 1 } else { fdc<-sum(maxdy[1:(j-1)])+1 }
 			
 			# save the dates at "DATSG":
-			if (i == 1) { # se for o loop da primeira especie
+			if (i == 1) { # if it is the first species loop
 			  DATSG[fdc:(fdc+length(cdg)-1),k] <- cdg
 			}
 			
@@ -203,16 +203,16 @@ for(i in 1:nsps) {
   # ------------------------------------------------------------------------------
 ## Save output
 
-# Clean workspace:
+# Clean work space:
 list=ls()
 list <- list[-which(list%in%c("DATSG","EFFGmins","EFFGsits","shortSITES","groups","NDETSG"))]
 rm(list=list, list)
 
-# Save separatedely the CSV file "groups" to be used in the Python script:
+# Save separately the CSV file "groups" to be used in the Python script:
 write.table(groups, "../Data_input/groups.csv", sep = "\t", row.names=FALSE, quote=TRUE)
 
 # Save output as an "RData" file:
-save.image("output_formatadados_r.RData")
+save.image("output_data_preparation_r.RData")
 
 
 
