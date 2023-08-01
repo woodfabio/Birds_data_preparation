@@ -45,11 +45,13 @@ start_time = time()
 #   - Rows: recording segments
 #   - Columns: species
 # where each cell has the probability of presence of the vocalization from that species in that segment.
+# It is a small survey from the last 100000 rows from the original (much bigger) dataset.
 Y = pd.read_csv("../Data_input/Raw_data/Y.csv", sep=";", dtype='float32')  # na_values=['NaN']
 
 # "SEGMTS" is a CSV file whose dimensions are:
 # - Rows: recording segments
 # - Columns: ID data of each recording segment (site, date, recording number and segment number)
+# It is a small survey from the last 100000 rows from the original (much bigger) dataset.
 SEGMTS = pd.read_csv("../Data_input/date_time_diurnal_capitalization_python.txt", sep=",")
 
 # "SITES" is a CSV file whose dimensions are:
