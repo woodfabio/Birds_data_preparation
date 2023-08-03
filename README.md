@@ -29,7 +29,7 @@ It has the original "raw" dataset files in the folder ***Raw_data*** and also th
 5.  **locations_diurnal_capitalization_r.txt**: the output from *segmts_and_sites_capitalization.R* (at the *R_scripts* folder), which receives *locations_diurnal.txt* (at the *Data_input/Raw_data* folder) as input and returns this file with standardized letter capitalization. It is identical to *locations_diurnal_capitalization_python.txt*, only generated through different languages.
 
 ### Data_input/Raw_data
-It has only the original "raw" datasetfiles:
+It has only the original "raw" dataset files:
 
 1. **date_time_diurnal.txt**: the original CSV file with ID data from each recording segment. It is a small survey from the last 100000 rows from the original (much bigger) dataset. It has the following dimensions:
             - Rows: recording segments
